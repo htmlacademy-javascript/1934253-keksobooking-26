@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Денис Машутинский](https://up.htmlacademy.ru/javascript/26/user/1934253).
-* Наставник: `Неизвестно`.
+* Наставник: [Геннадий Максимов](https://htmlacademy.ru/profile/gennadiy).
 
 ---
 
