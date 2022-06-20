@@ -1,8 +1,8 @@
 const getCoordinates = function (min, max, point) {
-  if(min<0&&min<max) {
-    return ('Задан неверный диапазон');
+  if(max > min && min > 0) {
+    return ((Math.random() * (max - min + 1) + min).toFixed(point));
   }
-  const coordinate =  Math.floor((Math.random() * (max - min + 1) + min).toFixed(point));
-  return coordinate;
+  return ('Задан неверный диапазон');
 };
-getCoordinates(1,6,2);
+getCoordinates(7, 6, 2);
+
