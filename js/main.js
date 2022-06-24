@@ -1,82 +1,72 @@
-const photoArray = [
+const MAX_COUNT = 10;
+
+const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
+const TYPES = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
+const TIMES = ['12:00', '13:00', '14:00'];
+const FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+const TITLES = ['Дорого богато', 'Дешево сердито', 'Ниже среднего'];
+const DESCRIPTIONS = ['Дом на опушке', 'Дом на полянке', 'Дом на берегу', 'Комната под лестницей'];
 
-const typeArray = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
+const LocationLat = {
+  MIN: 35.65000,
+  MAX: 35.70000,
+};
+const LocationLng = {
+  MIN: 139.70000,
+  MAX: 139.80000,
+};
+const Price = {
+  MIN: 100,
+  MAX: 1000,
+};
+const MAX_COUNT_ROOMS = 5;
+const GUESTS = 10;
 
-const timeArray = ['12:00', '13:00', '14:00'];
-
-const featuresArray = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-
-// количество созданных объектов
-const repeat = 10;
-
-const lat = getRandomPositiveFloat(35.65,35.7, 5);
-
-const lng = getRandomPositiveFloat(139.7,139.8, 5);
-
-const coordinate = {lat,lng};
-
-// Получение случайного целочисленного рандом числа
-function getRandomPositiveInteger (a, b) {
+const getRandomPositiveInteger = (a, b) => {
   const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
   const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
   const result = Math.random() * (upper - lower + 1) + lower;
   return Math.floor(result);
-}
+};
 
-getRandomPositiveInteger (0,10);
-
-// Получение случайного рандом числа с плавающей точкой
-
-function getRandomPositiveFloat (a, b, digits = 1) {
+const getRandomPositiveFloat = (a, b, digits = 1) => {
   const lower = Math.min(Math.abs(a), Math.abs(b));
   const upper = Math.max(Math.abs(a), Math.abs(b));
   const result = Math.random() * (upper - lower) + lower;
   return +result.toFixed(digits);
-}
-
-// Получить случайный элемент массива
-const getRandomElementArray = function (array) {
-  return array[getRandomPositiveInteger (0, array.length-1)];
 };
 
-// добавление 0 перед номером фото
-function additionalZero () {
-  return String(getRandomPositiveInteger(0,10)).padStart(2, '0');
-}
-// получение массива случайной длинны из существующего массива
-function getArrayRanadomlength (array) {
-  return array.slice(0,getRandomPositiveFloat(1,array.length));
-}
+const getBooking = (id) => {
+  const time = TIMES[getRandomPositiveInteger(0, TIMES.length-1)];
+  const location = {
+    lat: getRandomPositiveFloat(LocationLat.MIN, LocationLng.MAX,5),
+    lng: getRandomPositiveFloat(LocationLng.MIN,LocationLng.MAX,5),
+  };
 
-function getBooking () {
   return {
     author: {
-      avatar:`img/avatars/user${additionalZero ()}.png`,
+      avatar: `img/avatars/user${id < 10 ? '0' : ''}${id}.png`
     },
     offer: {
-      title: 'Заголовок',
-      addres: `${lat}, ${lng}`,
-      price: getRandomPositiveInteger (0,10),
-      type: getRandomElementArray(typeArray),
-      rooms: getRandomPositiveInteger (0,10),
-      guests: getRandomPositiveInteger (0,10),
-      checkin: getRandomElementArray(timeArray),
-      checkout: getRandomElementArray(timeArray),
-      features: getArrayRanadomlength(featuresArray),
-      description: 'Придумать описание',
-      photos: getArrayRanadomlength(photoArray),
+      title: TITLES[getRandomPositiveInteger(0, TITLES.length-1)],
+      addres: `${location.lat}, ${location.lng}`,
+      price: getRandomPositiveInteger(Price.MIN, Price.MAX),
+      type: TYPES[getRandomPositiveInteger (0, TYPES.length-1)],
+      rooms: getRandomPositiveInteger(1, MAX_COUNT_ROOMS),
+      guests: getRandomPositiveInteger(1, GUESTS),
+      checkin: time,
+      checkout: time,
+      features: FEATURES.slice(0,getRandomPositiveInteger(0, FEATURES.length-1)),
+      description: DESCRIPTIONS[getRandomPositiveInteger(0, DESCRIPTIONS.length-1)],
+      photos: PHOTOS[getRandomPositiveInteger(0, PHOTOS.length-1)],
     },
-    location: coordinate,
+    location,
   };
-}
-
-const createObject = function (arrayRepeat) {
-  return Array.from({length: arrayRepeat}, getBooking);
 };
 
-createObject (repeat);
-
+const bookings = new Array(MAX_COUNT).fill('').map((_, index) => getBooking(index + 1));
+bookings;
