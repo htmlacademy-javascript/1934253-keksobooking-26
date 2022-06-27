@@ -70,3 +70,12 @@ const getBooking = (id) => {
 
 const bookings = new Array(MAX_COUNT).fill('').map((_, index) => getBooking(index + 1));
 bookings;
+
+const getCoordinates = function (min, max, point) {
+  if(max > min && min > 0) {
+    return ((Math.random() * (max - min + 1) + min).toFixed(point));
+  }
+  return ('Задан неверный диапазон');
+};
+getCoordinates(7, 6, 2);
+
