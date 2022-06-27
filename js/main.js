@@ -24,7 +24,7 @@ const Price = {
   MAX: 1000,
 };
 const MAX_COUNT_ROOMS = 5;
-const GUESTS = 10;
+const MAX_GUEST_COUNT = 10;
 
 const getRandomPositiveInteger = (a, b) => {
   const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
@@ -44,7 +44,7 @@ const getBooking = (id) => {
   const time = TIMES[getRandomPositiveInteger(0, TIMES.length-1)];
   const location = {
     lat: getRandomPositiveFloat(LocationLat.MIN, LocationLng.MAX,5),
-    lng: getRandomPositiveFloat(LocationLng.MIN,LocationLng.MAX,5),
+    lng: getRandomPositiveFloat(LocationLng.MIN, LocationLng.MAX,5),
   };
 
   return {
@@ -55,9 +55,9 @@ const getBooking = (id) => {
       title: TITLES[getRandomPositiveInteger(0, TITLES.length-1)],
       addres: `${location.lat}, ${location.lng}`,
       price: getRandomPositiveInteger(Price.MIN, Price.MAX),
-      type: TYPES[getRandomPositiveInteger (0, TYPES.length-1)],
+      type: TYPES[getRandomPositiveInteger(0, TYPES.length-1)],
       rooms: getRandomPositiveInteger(1, MAX_COUNT_ROOMS),
-      guests: getRandomPositiveInteger(1, GUESTS),
+      guests: getRandomPositiveInteger(1, MAX_GUEST_COUNT),
       checkin: time,
       checkout: time,
       features: FEATURES.slice(0,getRandomPositiveInteger(0, FEATURES.length-1)),
