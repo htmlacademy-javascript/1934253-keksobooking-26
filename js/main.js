@@ -40,7 +40,7 @@ const getRandomPositiveFloat = (a, b, digits = 1) => {
   return +result.toFixed(digits);
 };
 
-const getBooking = (id) => {
+const getBookingCard = (id) => {
   const time = TIMES[getRandomPositiveInteger(0, TIMES.length-1)];
   const location = {
     lat: getRandomPositiveFloat(LocationLat.MIN, LocationLng.MAX,5),
@@ -68,5 +68,5 @@ const getBooking = (id) => {
   };
 };
 
-const bookings = new Array(MAX_COUNT).fill('').map((_, index) => getBooking(index + 1));
-bookings;
+const getBooking = () => new Array(MAX_COUNT).fill('').map((_, index) => getBookingCard(index + 1));
+getBooking();
