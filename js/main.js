@@ -1,2 +1,2 @@
-import {getBooking} from './data.js';
+import {getBooking} from './mock.js';
 getBooking();

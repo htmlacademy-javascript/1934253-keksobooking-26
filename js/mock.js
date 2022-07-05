@@ -58,4 +58,4 @@ const getBookingCard = (id) => {
 
 
 const getBooking = () => new Array(MAX_COUNT).fill('').map((_, index) => getBookingCard(index + 1));
-export{getBooking};
+export {getBooking};

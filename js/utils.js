@@ -12,4 +12,4 @@ const getRandomPositiveFloat = (a, b, digits = 1) => {
   return +result.toFixed(digits);
 };
 
-export{getRandomPositiveFloat,getRandomPositiveInteger};
+export {getRandomPositiveFloat, getRandomPositiveInteger};
