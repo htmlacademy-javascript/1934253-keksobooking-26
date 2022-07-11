@@ -1,4 +1,4 @@
-import {getRandomPositiveFloat, getRandomPositiveInteger} from './utils.js';
+import { getRandomPositiveFloat, getRandomPositiveInteger } from './utils.js';
 const MAX_COUNT = 10;
 
 const PHOTOS = [
@@ -10,7 +10,7 @@ const TYPES = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
 const TIMES = ['12:00', '13:00', '14:00'];
 const FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 const TITLES = ['Дорого богато', 'Дешево сердито', 'Ниже среднего'];
-const DESCRIPTIONS = ['Дом на опушке', 'Дом на полянке', 'Дом на берегу', 'Комната под лестницей'];
+const DESCRIPTIONS = ['Хороший вариант', 'Плохой вариант', 'Дешевый вариант', 'Дорогой вариант'];
 
 const LocationLat = {
   MIN: 35.65000,
@@ -41,7 +41,7 @@ const getBookingCard = (id) => {
     },
     offer: {
       title: TITLES[getRandomPositiveInteger(0, TITLES.length-1)],
-      addres: `${location.lat}, ${location.lng}`,
+      address: `${location.lat}, ${location.lng}`,
       price: getRandomPositiveInteger(Price.MIN, Price.MAX),
       type: TYPES[getRandomPositiveInteger(0, TYPES.length-1)],
       rooms: getRandomPositiveInteger(1, MAX_COUNT_ROOMS),
@@ -57,5 +57,5 @@ const getBookingCard = (id) => {
 };
 
 
-const getBooking = () => new Array(MAX_COUNT).fill('').map((_, index) => getBookingCard(index + 1));
-export {getBooking};
+const getBookings = () => new Array(MAX_COUNT).fill('').map((_, index) => getBookingCard(index + 1));
+export { getBookings };
