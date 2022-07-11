@@ -20,7 +20,7 @@ const renderCapacity = (rooms,guests) => {
 };
 
 const getCardTemplate = ({offer, author}) => `<article class="popup">
-    ${(offer.avatar) ? `<img src="${author.avatar}" class="popup__avatar" width="70" height="70" alt="Аватар пользователя">` : ''}
+    ${(author.avatar) ? `<img src="${author.avatar}" class="popup__avatar" width="70" height="70" alt="Аватар пользователя">` : ''}
     ${(offer.title) ? `<h3 class="popup__title">${offer.title}</h3>` : ''}
     ${(offer.address) ? `<p class="popup__text popup__text--address">${offer.address}</p>` : ''}
     ${(offer.price) ? `<p class="popup__text popup__text--price">${offer.price}${' ₽/ночь'}</p>` : ''}
@@ -30,7 +30,7 @@ const getCardTemplate = ({offer, author}) => `<article class="popup">
     ${offer.features.length > 0 ? getFeaturesTemplate(offer.features) : ''}
     <p class="popup__description">${offer.description}</p>
     <div class="popup__photos">
-      <img src="${offer.photos}" class="popup__photo" width="45" height="40" alt="Фотография жилья">
+    ${(offer.photos) ? `<img src="${offer.photos}" class="popup__photo" width="45" height="40" alt="Фотография жилья">` : ''}
     </div>
   </article>`;
 
