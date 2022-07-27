@@ -1035,3 +1035,16 @@ fieldset {
 .hidden {
   display: none;
 }
+
+/* Сообщения при отправке формы */
+
+.pristine-error {
+  color: #ff0000;
+  text-align: center;
+  display: block;
+  margin-top: 5px;
+}
+
+.ad-form__slider + .pristine-error {
+  text-align: left;
+}

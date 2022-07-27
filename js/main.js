@@ -1,8 +1,22 @@
-const getCoordinates = function (min, max, point) {
-  if(max > min && min > 0) {
-    return ((Math.random() * (max - min + 1) + min).toFixed(point));
-  }
-  return ('Задан неверный диапазон');
-};
-getCoordinates(7, 6, 2);
 
+import { setBlockPage } from './utils.js';
+import { mapInit } from './map.js';
+import { getData } from './api.js';
+import { openErrorPopup } from './message.js';
+import { initValidateForm } from './validate-form.js';
+import { initFilter } from './filter.js';
+
+
+const adForm = document.querySelector('.ad-form');
+const filtersForm = document.querySelector('.map__filters');
+
+setBlockPage();
+
+getData((data) => {
+  mapInit(data.slice());
+  initFilter(data.slice());
+}, openErrorPopup);
+
+initValidateForm();
+
+export { adForm, filtersForm};
