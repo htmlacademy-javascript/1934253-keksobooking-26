@@ -1,4 +1,3 @@
-
 import { setBlockPage } from './utils.js';
 import { mapInit } from './map.js';
 import { getData } from './api.js';
@@ -20,3 +19,6 @@ getData((data) => {
 initValidateForm();
 
 export { adForm, filtersForm};
+import {getBooking} from './mock.js';
+getBooking();
+
