@@ -1,5 +1,5 @@
 import { setBlockPage } from './utils.js';
-import { mapInit, initializeMarkers } from './map.js';
+import { mapMarkersInit, mapLoad } from './map.js';
 import { getData } from './api.js';
 import { openErrorPopup } from './message.js';
 import { initValidateForm } from './validate-form.js';
@@ -9,11 +9,11 @@ import './avatar.js';
 const adForm = document.querySelector('.ad-form');
 const filtersForm = document.querySelector('.map__filters');
 
-setBlockPage();
-mapInit();
+setBlockPage(true);
+mapLoad();
 
 getData((data) => {
-  initializeMarkers(data);
+  mapMarkersInit(data.slice());
   initFilter(data.slice());
 }, openErrorPopup);
 initValidateForm();

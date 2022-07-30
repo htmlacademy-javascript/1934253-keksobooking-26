@@ -37,34 +37,26 @@ const mainPinMarker = L.marker(
 
 const markerGroup = L.layerGroup().addTo(map);
 
-const createMarker = (bookings) => {
-  defaultBookings = bookings;
-  bookings.slice(0, MAX_COUNT_MARKER).forEach((booking) => {
-    const {lat, lng} = booking.location;
-    const marker = L.marker(
-      {
-        lat,
-        lng,
-      },
-      {
-        icon: pinIcon,
-      },
-    );
+const createMarker = (booking) => {
+  const {lat, lng} = booking.location;
+  const marker = L.marker(
+    {
+      lat,
+      lng,
+    },
+    {
+      icon: pinIcon,
+    },
+  );
 
-    marker
-      .addTo(markerGroup)
-      .bindPopup(getCardTemplate(booking));
-  });
+  marker
+    .addTo(markerGroup)
+    .bindPopup(getCardTemplate(booking));
 };
-
-const initializeMarkers = (dataFromBackend) => {
-  createMarker(dataFromBackend);
-};
-const mapInit = () => {
+const mapLoad = () => {
   map.on('load', () => {
     setBlockPage(false);
     addressField.value = `${MainPinCoordinates.LAT} ${MainPinCoordinates.LNG}`;
-
   });
   map.setView({
     lat: MainPinCoordinates.LAT,
@@ -80,6 +72,13 @@ const mapInit = () => {
 
   mainPinMarker.addTo(map);
 
+};
+
+const mapMarkersInit = (bookings) => {
+  defaultBookings = bookings;
+  bookings.slice(0, MAX_COUNT_MARKER).forEach((booking) => {
+    createMarker(booking);
+  });
 
   mainPinMarker.on('moveend', (evt) => {
     const {lat, lng} = evt.target.getLatLng();
@@ -107,4 +106,4 @@ const resetMap = (bookings = defaultBookings.slice(0, MAX_COUNT_MARKER)) => {
   });
 };
 
-export { mapInit, resetMap, MainPinCoordinates, initializeMarkers };
+export { mapMarkersInit, resetMap, MainPinCoordinates, mapLoad };
