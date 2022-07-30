@@ -25,7 +25,7 @@ export const getCapacityGuest = (countGuest) => {
 
 export const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export const setBlockPage = (isBlock = true) => {
+export const setBlockPage = (isBlock) => {
   adForm.classList[isBlock ? 'add' : 'remove']('ad-form--disabled');
   adForm.querySelector('.ad-form-header').classList[isBlock ? 'add' : 'remove']('ad-form-header--disabled');
   adForm.querySelectorAll('.ad-form__element').forEach((fieldset) => {
