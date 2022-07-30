@@ -1,5 +1,4 @@
 import { isEscapeKey } from './utils.js';
-import { resetForm } from './validate-form.js';
 
 const body = document.querySelector('body');
 
@@ -26,7 +25,7 @@ const addListenersByPopup = (popup) => {
   popup.addEventListener('click', () => {
     document.removeEventListener('keydown', onDocumentKeyDown);
     popup.remove();
-  })
+  });
 };
 
 export const openSuccessPopup = () => {
