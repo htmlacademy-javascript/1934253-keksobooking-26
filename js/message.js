@@ -1,6 +1,8 @@
 import { isEscapeKey } from './utils.js';
 import { resetForm } from './validate-form.js';
 
+const body = document.querySelector('body');
+
 const SUCCESS_POPUP_TEMPLATE = `<div class="success js-success">
   <p class="success__message">Ваше объявление<br>успешно размещено!</p>
 </div>`;
@@ -22,19 +24,19 @@ const addListenersByPopup = (popup) => {
   document.addEventListener('keydown', onDocumentKeyDown);
 
   popup.addEventListener('click', () => {
+    document.removeEventListener('keydown', onDocumentKeyDown);
     popup.remove();
-  });
+  })
 };
 
 export const openSuccessPopup = () => {
-  document.querySelector('body').insertAdjacentHTML('beforeend', SUCCESS_POPUP_TEMPLATE );
+  body.insertAdjacentHTML('beforeend', SUCCESS_POPUP_TEMPLATE );
   const successPopup = document.querySelector('.js-success');
   addListenersByPopup(successPopup);
-  resetForm();
 };
 
 export const openErrorPopup = (message)  => {
-  document.querySelector('body').insertAdjacentHTML('beforeend', getErrorPopupTemplate(message));
+  body.insertAdjacentHTML('beforeend', getErrorPopupTemplate(message));
 
   const errorPopup = document.querySelector('.js-error');
 
