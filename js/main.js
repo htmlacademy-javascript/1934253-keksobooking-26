@@ -1,20 +1,17 @@
-import { setBlockPage } from './utils.js';
-import { mapMarkersInit, mapLoad } from './map.js';
-import { getData } from './api.js';
-import { openErrorPopup } from './message.js';
+import { setBlockForm, setBlockFilters } from './utils.js';
+import {  mapLoad } from './map.js';
 import { initValidateForm } from './validate-form.js';
-import { initFilter } from './filter.js';
-import './avatar.js';
+
+import {previewPhotoLoader} from './photo.js';
 
 const adForm = document.querySelector('.ad-form');
 const filtersForm = document.querySelector('.map__filters');
 
-setBlockPage(true);
+setBlockFilters(true);
+setBlockForm(true);
+
 mapLoad();
 
-getData((data) => {
-  mapMarkersInit(data.slice());
-  initFilter(data.slice());
-}, openErrorPopup);
 initValidateForm();
+previewPhotoLoader();
 export { adForm, filtersForm };

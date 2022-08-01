@@ -2,9 +2,8 @@ import { sendData } from './api.js';
 import { resetFilter } from './filter.js';
 import { MainPinCoordinates, resetMap } from './map.js';
 import { openSuccessPopup, openErrorPopup } from './message.js';
-
 const BAD_COUNT_GUESTS_MESSAGE = 'Неверное количество гостей';
-
+import { resetImages } from './photo.js';
 const LengthTitle = {
   MIN: 30,
   MAX: 100,
@@ -88,14 +87,6 @@ const getMinPriceMessage = () => {
 
 const validateRoomCount = () => (countGuestsByRoom[roomCount.value].includes(guestCount.value));
 
-const onAdFormSubmit = (evt) => {
-  evt.preventDefault();
-
-  if (pristine.validate()) {
-    sendData(openSuccessPopup, openErrorPopup, new FormData(evt.target));
-  }
-};
-
 const resetForm = () => {
   adForm.reset();
   slider.noUiSlider.updateOptions({
@@ -108,6 +99,21 @@ const resetForm = () => {
   addressField.value = `${MainPinCoordinates.LAT} ${MainPinCoordinates.LNG}`;
 
   slider.noUiSlider.set(minPrice.flat);
+
+  resetImages();
+};
+
+const onAdFormSubmit = (evt) => {
+  evt.preventDefault();
+
+  if (pristine.validate()) {
+    sendData(() => {
+      openSuccessPopup();
+      resetMap();
+      resetFilter();
+      resetForm();
+    }, openErrorPopup, new FormData(evt.target));
+  }
 };
 
 const initValidateForm = () => {
