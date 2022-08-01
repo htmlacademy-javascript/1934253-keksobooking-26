@@ -1,7 +1,10 @@
 
+import { getData } from './api.js';
 import { getCardTemplate } from './card.js';
 import { MAX_COUNT_MARKER } from './const.js';
-import { setBlockPage } from './utils.js';
+import { setBlockForm, setBlockFilters } from './utils.js';
+import { initFilter } from './filter.js';
+import { openErrorPopup } from './message.js';
 
 const MainPinCoordinates = {
   LAT: 35.68399,
@@ -53,11 +56,34 @@ const createMarker = (booking) => {
     .addTo(markerGroup)
     .bindPopup(getCardTemplate(booking));
 };
+
+const mapMarkersInit = (bookings) => {
+  defaultBookings = bookings;
+  bookings.slice(0, MAX_COUNT_MARKER).forEach((booking) => {
+    createMarker(booking);
+  });
+};
+
+const mainPinMarkerInit = () => {
+  mainPinMarker.on('moveend', (evt) => {
+    const {lat, lng} = evt.target.getLatLng();
+    addressField.value = `${lat.toFixed(5)} ${lng.toFixed(5)}`;
+  });
+};
+
 const mapLoad = () => {
   map.on('load', () => {
-    setBlockPage(false);
+    mainPinMarkerInit();
+    setBlockForm(false);
     addressField.value = `${MainPinCoordinates.LAT} ${MainPinCoordinates.LNG}`;
+
+    getData((data) => {
+      mapMarkersInit(data.slice());
+      setBlockFilters(false);
+      initFilter(data.slice());
+    }, openErrorPopup);
   });
+
   map.setView({
     lat: MainPinCoordinates.LAT,
     lng: MainPinCoordinates.LNG,
@@ -71,18 +97,12 @@ const mapLoad = () => {
   ).addTo(map);
 
   mainPinMarker.addTo(map);
-
 };
 
-const mapMarkersInit = (bookings) => {
-  defaultBookings = bookings;
-  bookings.slice(0, MAX_COUNT_MARKER).forEach((booking) => {
+const renderMarkers = (bookings) => {
+  markerGroup.clearLayers();
+  bookings.forEach((booking) => {
     createMarker(booking);
-  });
-
-  mainPinMarker.on('moveend', (evt) => {
-    const {lat, lng} = evt.target.getLatLng();
-    addressField.value = `${lat.toFixed(5)} ${lng.toFixed(5)}`;
   });
 };
 
@@ -97,13 +117,8 @@ const resetMap = (bookings = defaultBookings.slice(0, MAX_COUNT_MARKER)) => {
     lng: MainPinCoordinates.LNG,
   }, 13);
 
-  markerGroup.clearLayers();
-
   addressField.value = `${MainPinCoordinates.LAT} ${MainPinCoordinates.LNG}`;
-
-  bookings.forEach((booking) => {
-    createMarker(booking);
-  });
+  renderMarkers(bookings);
 };
 
-export { mapMarkersInit, resetMap, MainPinCoordinates, mapLoad };
+export { resetMap, MainPinCoordinates, mapLoad, renderMarkers };

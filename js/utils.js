@@ -25,19 +25,21 @@ export const getCapacityGuest = (countGuest) => {
 
 export const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export const setBlockPage = (isBlock) => {
+export const setBlockForm = (isBlock) => {
   adForm.classList[isBlock ? 'add' : 'remove']('ad-form--disabled');
   adForm.querySelector('.ad-form-header').classList[isBlock ? 'add' : 'remove']('ad-form-header--disabled');
   adForm.querySelectorAll('.ad-form__element').forEach((fieldset) => {
     fieldset.disabled = isBlock;
   });
+};
+
+export const setBlockFilters = (isBlock) => {
   filtersForm.classList[isBlock ? 'add' : 'remove']('map__filters--disabled');
   filtersForm.querySelectorAll('.map__filter').forEach((select) => {
     select.disabled = isBlock;
   });
   filtersForm.querySelector('.map__features').disabled = isBlock;
 };
-
 
 export const debounce = (callback, timeoutDelay = DEBOUNCE_DELAY) => {
   let timeoutId;
@@ -47,20 +49,3 @@ export const debounce = (callback, timeoutDelay = DEBOUNCE_DELAY) => {
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
 };
-
-const getRandomPositiveInteger = (a, b) => {
-  const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
-  const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
-};
-
-const getRandomPositiveFloat = (a, b, digits = 1) => {
-  const lower = Math.min(Math.abs(a), Math.abs(b));
-  const upper = Math.max(Math.abs(a), Math.abs(b));
-  const result = Math.random() * (upper - lower) + lower;
-  return +result.toFixed(digits);
-};
-
-export {getRandomPositiveFloat, getRandomPositiveInteger};
-

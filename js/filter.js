@@ -1,5 +1,5 @@
 import { MAX_COUNT_MARKER } from './const.js';
-import { resetMap } from './map.js';
+import { renderMarkers } from './map.js';
 import { debounce } from './utils.js';
 
 const filtersForm = document.querySelector('.map__filters');
@@ -202,7 +202,7 @@ const onFilterFormChange = () => {
     features: featuresValues,
   };
 
-  resetMap(getFilteredPoints(filter));
+  renderMarkers(getFilteredPoints(filter));
 };
 
 export const resetFilter = () => filtersForm.reset();
